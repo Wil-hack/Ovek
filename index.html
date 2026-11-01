@@ -1,0 +1,1007 @@
+```html
+<!DOCTYPE html>
+<html lang="id" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>realme Official Store — Make it Real</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        realme: {
+                            yellow: '#ffcc00',
+                            yellowDark: '#e6b800',
+                            black: '#0a0a0c',
+                            card: '#121318',
+                            slate: '#1a1c23',
+                            gray: '#8a8d9b'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 2.5s infinite',
+                        'float': 'float 5s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.4', filter: 'drop-shadow(0 0 15px rgba(255,204,0,0.3))' },
+                            '50%': { opacity: '0.9', filter: 'drop-shadow(0 0 35px rgba(255,204,0,0.8))' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Font Inter & Lucide Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #050507;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+
+        .glass-panel {
+            background: rgba(18, 19, 24, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: linear-gradient(135deg, rgba(26, 28, 35, 0.7) 0%, rgba(18, 19, 24, 0.9) 100%);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(255, 204, 0, 0.5);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px -10px rgba(255, 204, 0, 0.15);
+        }
+
+        .yellow-glow {
+            box-shadow: 0 0 50px 10px rgba(255, 204, 0, 0.2);
+        }
+
+        .text-gradient-yellow {
+            background: linear-gradient(135deg, #ffcc00 0%, #ff9900 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ffcc00;
+        }
+    </style>
+</head>
+<body class="bg-[#050507] text-slate-100 antialiased selection:bg-realme-yellow selection:text-black">
+
+    <!-- NAVIGATION BAR -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-2 font-black text-2xl tracking-tighter">
+                <span class="bg-realme-yellow text-black px-2 py-0.5 rounded font-black tracking-normal text-xl">realme</span>
+                <span class="text-white font-extrabold tracking-tight">INDONESIA</span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <div class="hidden md:flex items-center space-x-8 text-sm font-semibold tracking-wide text-slate-300">
+                <a href="#flagship" class="hover:text-realme-yellow transition-colors">Flagship GT 7 Pro</a>
+                <a href="#fitur" class="hover:text-realme-yellow transition-colors">Inovasi Flagship</a>
+                <a href="#katalog" class="hover:text-realme-yellow transition-colors">Semua Produk</a>
+                <a href="#garansi" class="hover:text-realme-yellow transition-colors">Layanan Purna Jual</a>
+            </div>
+
+            <!-- Header Action & Cart -->
+            <div class="flex items-center gap-4">
+                <button onclick="toggleCartDrawer()" class="relative p-2.5 rounded-full bg-slate-900 border border-slate-700 hover:border-realme-yellow transition text-slate-200">
+                    <i data-lucide="shopping-cart" class="w-5 h-5"></i>
+                    <span id="cartBadge" class="absolute -top-1 -right-1 w-5 h-5 bg-realme-yellow text-black font-bold text-xs rounded-full flex items-center justify-center">0</span>
+                </button>
+                <a href="#katalog" class="hidden sm:inline-flex px-6 py-2.5 bg-realme-yellow hover:bg-realme-yellowDark text-black font-extrabold text-sm rounded-xl transition shadow-lg shadow-realme-yellow/20">
+                    Beli Produk
+                </a>
+                <button id="mobileMenuBtn" class="md:hidden text-slate-300 hover:text-white">
+                    <i data-lucide="menu" class="w-7 h-7"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden glass-panel border-t border-slate-800 px-4 py-4 space-y-3">
+            <a href="#flagship" class="block py-2 font-semibold text-slate-300 hover:text-realme-yellow">Flagship GT 7 Pro</a>
+            <a href="#fitur" class="block py-2 font-semibold text-slate-300 hover:text-realme-yellow">Inovasi Flagship</a>
+            <a href="#katalog" class="block py-2 font-semibold text-slate-300 hover:text-realme-yellow">Katalog Produk & Harga</a>
+            <a href="#garansi" class="block py-2 font-semibold text-slate-300 hover:text-realme-yellow">Garansi & Layanan</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION: REALME GT 7 PRO FLAGSHIP SHOWCASE -->
+    <section id="flagship" class="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden flex items-center min-h-screen">
+        <!-- Glow accents -->
+        <div class="absolute top-1/3 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-realme-yellow/10 rounded-full blur-[140px] pointer-events-none"></div>
+        <div class="absolute top-1/2 right-10 w-[400px] h-[400px] bg-amber-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Details (7 Cols) -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-realme-yellow/10 border border-realme-yellow/30 text-realme-yellow text-xs sm:text-sm font-bold uppercase tracking-wider">
+                        <i data-lucide="zap" class="w-4 h-4"></i> The Dark Horse Flagship 2026
+                    </div>
+
+                    <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-tight">
+                        realme GT 7 Pro <br>
+                        <span class="text-gradient-yellow">Explore the Unexplored.</span>
+                    </h1>
+
+                    <p class="text-slate-400 text-lg sm:text-xl max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                        Performa gahar ditenagai chipset <strong class="text-white">Snapdragon® 8 Gen 3 (4nm)</strong>, kamera periskop Sony OIS 200MP, dan pengisian tercepat <strong class="text-white">120W SUPERVOOC</strong>.
+                    </p>
+
+                    <!-- Interactive Dynamic Colors Selector -->
+                    <div class="pt-2">
+                        <div class="text-xs uppercase font-bold text-slate-400 tracking-wider mb-3">Pilih Varian Warna Flagship:</div>
+                        <div class="flex items-center justify-center lg:justify-start gap-4">
+                            <button onclick="changeHeroColor('yellow')" class="flex items-center gap-2 px-4 py-2 rounded-xl glass-panel border border-realme-yellow text-xs font-bold text-white transition hover:scale-105">
+                                <span class="w-4 h-4 rounded-full bg-realme-yellow border border-black"></span> Cyber Yellow
+                            </button>
+                            <button onclick="changeHeroColor('titanium')" class="flex items-center gap-2 px-4 py-2 rounded-xl glass-panel border border-slate-700 text-xs font-bold text-slate-300 transition hover:scale-105">
+                                <span class="w-4 h-4 rounded-full bg-slate-300 border border-black"></span> Titanium Silver
+                            </button>
+                            <button onclick="changeHeroColor('obsidian')" class="flex items-center gap-2 px-4 py-2 rounded-xl glass-panel border border-slate-700 text-xs font-bold text-slate-300 transition hover:scale-105">
+                                <span class="w-4 h-4 rounded-full bg-slate-900 border border-slate-700"></span> Obsidian Black
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <button onclick="quickBuy('gt7pro')" class="w-full sm:w-auto px-8 py-4 bg-realme-yellow hover:bg-realme-yellowDark text-black font-extrabold text-base rounded-2xl shadow-xl shadow-realme-yellow/20 transition flex items-center justify-center gap-2">
+                            <i data-lucide="shopping-bag" class="w-5 h-5"></i> Beli GT 7 Pro — Rp 13.999.000
+                        </button>
+                        <a href="#fitur" class="w-full sm:w-auto px-8 py-4 glass-panel text-white font-bold text-base rounded-2xl border border-slate-700 hover:border-realme-yellow transition flex items-center justify-center gap-2">
+                            <i data-lucide="sliders" class="w-5 h-5 text-realme-yellow"></i> Uji Fitur Interaktif
+                        </a>
+                    </div>
+
+                    <!-- Key Spec Badges -->
+                    <div class="pt-8 border-t border-slate-800 grid grid-cols-3 gap-4 text-center lg:text-left">
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-black text-white">200 MP</div>
+                            <div class="text-xs text-slate-400">Sony OIS Periscope</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-black text-realme-yellow">120W</div>
+                            <div class="text-xs text-slate-400">SUPERVOOC Charge</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-black text-white">6000 mAh</div>
+                            <div class="text-xs text-slate-400">Titan Battery Tech</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Mockup Visual (5 Cols) -->
+                <div class="lg:col-span-5 flex justify-center relative">
+                    <div class="relative w-full max-w-[340px] sm:max-w-[380px] animate-float">
+                        <!-- Smartphone Render Container -->
+                        <div id="heroPhoneContainer" class="relative aspect-[9/19.5] bg-gradient-to-b from-slate-900 to-black rounded-[48px] p-3 border-4 border-realme-yellow shadow-2xl yellow-glow transition-all duration-500 overflow-hidden">
+                            <div class="relative w-full h-full bg-slate-950 rounded-[40px] overflow-hidden flex flex-col justify-between p-4 border border-slate-800">
+                                
+                                <!-- Punch Hole Camera Notch -->
+                                <div class="absolute top-3 left-1/2 -translate-x-1/2 w-16 h-4 bg-slate-950 border border-slate-800 rounded-full flex items-center justify-center z-30">
+                                    <div class="w-2 h-2 bg-slate-900 rounded-full border border-slate-700"></div>
+                                </div>
+
+                                <!-- Screen Background Graphic -->
+                                <div class="absolute inset-0 bg-gradient-to-tr from-slate-950 via-slate-900 to-amber-950/40 z-0"></div>
+                                
+                                <!-- Screen UI Mockup -->
+                                <div class="relative z-10 pt-12 text-center space-y-4">
+                                    <div class="text-[10px] uppercase font-bold tracking-widest text-realme-yellow">realme UI 6.0 Flagship</div>
+                                    <div class="text-4xl font-extrabold text-white tracking-tight">12:00</div>
+                                    <div class="text-xs text-slate-400">realme GT 7 Pro Ultra</div>
+
+                                    <div class="my-6 flex justify-center">
+                                        <div class="w-32 h-32 rounded-full border border-realme-yellow/40 p-2 flex items-center justify-center relative animate-pulse">
+                                            <div class="w-full h-full rounded-full bg-realme-yellow/10 flex flex-col items-center justify-center text-realme-yellow">
+                                                <i data-lucide="cpu" class="w-8 h-8"></i>
+                                                <span class="text-[10px] font-black mt-1">SNAPDRAGON 8G3</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Bottom Widget -->
+                                <div class="relative z-10 space-y-2">
+                                    <div class="glass-panel p-3 rounded-2xl flex items-center justify-between text-xs border-realme-yellow/30">
+                                        <div class="flex items-center gap-2">
+                                            <i data-lucide="shield-check" class="w-4 h-4 text-realme-yellow"></i>
+                                            <span class="font-bold text-white">SuperVOOC 120W</span>
+                                        </div>
+                                        <span class="text-realme-yellow font-extrabold">SIAP</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Floating Badges -->
+                        <div class="absolute -top-4 -left-4 glass-panel px-4 py-2 rounded-2xl flex items-center gap-2 border border-realme-yellow/40 z-20 shadow-xl">
+                            <i data-lucide="flame" class="w-5 h-5 text-realme-yellow"></i>
+                            <div>
+                                <div class="text-xs font-bold text-white">AnTuTu Benchmark</div>
+                                <div class="text-[10px] text-realme-yellow font-extrabold">2.180.000+ PTS</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PROMOTIONAL FLASH SALE BANNER -->
+    <section class="py-4 bg-realme-yellow text-black border-y border-black font-extrabold">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+            <div class="flex items-center gap-2 text-sm sm:text-base">
+                <i data-lucide="zap" class="w-5 h-5 fill-black"></i>
+                <span>FLASH SALE REALME INDONESIA — GUNAKAN KUPON: <span class="bg-black text-realme-yellow px-2 py-0.5 rounded">REALME2026</span> UNTUK DISKON RP 500.000!</span>
+            </div>
+            <a href="#katalog" class="bg-black text-white px-4 py-1.5 rounded-lg text-xs hover:bg-slate-900 transition shrink-0">
+                Klaim Kupon Toko
+            </a>
+        </div>
+    </section>
+
+    <!-- SECTION 2: INTERACTIVE FEATURE EXPERIENCES -->
+    <section id="fitur" class="py-24 relative overflow-hidden bg-slate-950/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
+            
+            <div class="text-center max-w-3xl mx-auto space-y-4">
+                <span class="text-xs font-black uppercase tracking-widest text-realme-yellow">Laboratorium Inovasi</span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white">Uji Keunggulan realme Secara Interaktif</h2>
+                <p class="text-slate-400 text-base">Coba langsung simulasi teknologi pengisian daya, sistem kamera, dan performa gaming flagship realme.</p>
+            </div>
+
+            <!-- FEATURE 1: 120W SUPERVOOC CHARGE SIMULATION -->
+            <div class="glass-panel p-8 sm:p-12 rounded-3xl border-slate-800 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-6 space-y-6">
+                    <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-realme-yellow/10 text-realme-yellow border border-realme-yellow/30">120W SUPERVOOC</span>
+                    <h3 class="text-3xl font-black text-white">Pengisian Daya Super Cepat Tanpa Panas</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Teknologi pengisian daya ganda dengan efisiensi konversi 98.5%. Isi daya baterai titan 6000mAh dari 0% ke 100% hanya dalam hitungan menit.
+                    </p>
+                    <button onclick="startVoocSim()" class="px-6 py-3 bg-realme-yellow hover:bg-realme-yellowDark text-black font-extrabold rounded-xl transition flex items-center gap-2 text-sm shadow-lg shadow-realme-yellow/20">
+                        <i data-lucide="zap" class="w-4 h-4"></i> Mulai Simulasi Charge 120W
+                    </button>
+                </div>
+
+                <div class="lg:col-span-6 flex justify-center">
+                    <div class="w-full max-w-sm bg-black p-6 rounded-3xl border border-slate-800 text-center space-y-6">
+                        <div class="flex justify-between items-center text-xs text-slate-400 font-mono">
+                            <span>SUPERVOOC 120W</span>
+                            <span id="voocStatus" class="text-realme-yellow font-bold">Siap Pengisian</span>
+                        </div>
+
+                        <!-- Battery graphic bar -->
+                        <div class="relative w-full h-16 bg-slate-900 rounded-2xl p-2 border border-slate-800 flex items-center overflow-hidden">
+                            <div id="voocBar" class="h-full bg-gradient-to-r from-amber-500 to-realme-yellow rounded-xl transition-all duration-200 w-[15%] flex items-center justify-end px-3 font-black text-black text-xs">
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between items-end">
+                            <div class="text-left">
+                                <span class="text-xs text-slate-500 block">Kapasitas</span>
+                                <span class="text-4xl font-black text-white" id="voocPercent">15%</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs text-slate-500 block">Sisa Waktu</span>
+                                <span class="text-sm font-bold text-realme-yellow" id="voocTimer">~18 Menit</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FEATURE 2: CAMERA LENS SIMULATOR -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-purple-500/10 text-purple-400 border border-purple-500/30">Kamera Sony OIS 200MP</span>
+                    <h3 class="text-3xl font-black text-white">Sistem Kamera Periskop LumaColor</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed">
+                        Beralih antar lensa secara instan untuk mencoba kualitas jepretan kamera realme GT 7 Pro di berbagai skenario kondisi cahaya.
+                    </p>
+
+                    <!-- Lens Mode Buttons -->
+                    <div class="space-y-3">
+                        <button onclick="switchLensMode('main')" id="lens-main-btn" class="w-full p-4 rounded-2xl glass-panel border border-realme-yellow flex items-center justify-between transition">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="aperture" class="w-5 h-5 text-realme-yellow"></i>
+                                <div class="text-left">
+                                    <div class="text-sm font-bold text-white">200MP Lensa Utama Sony</div>
+                                    <div class="text-xs text-slate-400">Sensor 1/1.4" dengan Dual OIS</div>
+                                </div>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-5 h-5 text-realme-yellow"></i>
+                        </button>
+                        
+                        <button onclick="switchLensMode('periscope')" id="lens-periscope-btn" class="w-full p-4 rounded-2xl glass-panel border border-slate-800 flex items-center justify-between transition hover:border-slate-700">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="zoom-in" class="w-5 h-5 text-purple-400"></i>
+                                <div class="text-left">
+                                    <div class="text-sm font-bold text-white">50MP Periskop 3.5x Optik</div>
+                                    <div class="text-xs text-slate-400">120x Super Zoom Telephoto</div>
+                                </div>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-5 h-5 text-slate-500"></i>
+                        </button>
+
+                        <button onclick="switchLensMode('wide')" id="lens-wide-btn" class="w-full p-4 rounded-2xl glass-panel border border-slate-800 flex items-center justify-between transition hover:border-slate-700">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="maximize" class="w-4 h-4 text-cyan-400"></i>
+                                <div class="text-left">
+                                    <div class="text-sm font-bold text-white">50MP Ultra-Wide 112°</div>
+                                    <div class="text-xs text-slate-400">Distorsi Nol & Night Mode</div>
+                                </div>
+                            </div>
+                            <i data-lucide="chevron-right" class="w-5 h-5 text-slate-500"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7">
+                    <div class="glass-panel p-3 rounded-3xl border-slate-800 overflow-hidden relative">
+                        <div class="aspect-video bg-black rounded-2xl overflow-hidden relative">
+                            <img id="lensSampleImg" src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1200&q=80" alt="Sample Kamera" class="w-full h-full object-cover transition-all duration-500">
+                            <div class="absolute bottom-4 left-4 bg-black/80 px-4 py-2 rounded-xl text-xs font-mono text-realme-yellow border border-realme-yellow/30" id="lensTag">
+                                MODE: 200MP MAIN OIS (f/1.69)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FEATURE 3: GAMING FPS & ICEBERG VC COOLING -->
+            <div class="glass-panel p-8 rounded-3xl border-slate-800 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-7 space-y-4">
+                    <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">Iceberg VC Cooling System 9.0</span>
+                    <h3 class="text-3xl font-black text-white">Main Game 120 FPS Tanpa Frame Drop</h3>
+                    <p class="text-slate-400 text-sm">Bandingkan performa visual smoothness antara 60 FPS standar dengan 120 FPS Ultra Mode pada realme GT 7 Pro.</p>
+                    
+                    <div class="flex gap-3">
+                        <button onclick="setFps(60)" id="fps60Btn" class="px-6 py-2.5 rounded-xl font-bold text-xs bg-slate-800 text-slate-400">Mode 60 FPS</button>
+                        <button onclick="setFps(120)" id="fps120Btn" class="px-6 py-2.5 rounded-xl font-bold text-xs bg-realme-yellow text-black font-extrabold">Mode 120 FPS Ultra</button>
+                    </div>
+
+                    <div class="pt-2 flex gap-6 text-xs text-slate-400">
+                        <div>Suhu CPU: <strong class="text-emerald-400" id="cpuTemp">36°C (Dingin)</strong></div>
+                        <div>Stabilitas Frame: <strong class="text-white" id="fpsStab">99.8% Perfect</strong></div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5">
+                    <div class="relative h-36 bg-black rounded-2xl border border-slate-800 overflow-hidden flex items-center p-4">
+                        <div id="gameSprite" class="w-12 h-12 rounded-xl bg-realme-yellow text-black flex items-center justify-center font-black text-xs shadow-lg shadow-realme-yellow/40 absolute left-4">
+                            120 FPS
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 3: E-COMMERCE PRODUCT CATALOG & STORE MALL -->
+    <section id="katalog" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div>
+                    <span class="text-xs font-black uppercase tracking-widest text-realme-yellow">Official Store Mall</span>
+                    <h2 class="text-3xl sm:text-5xl font-black text-white">Katalog Smartphone realme</h2>
+                    <p class="text-slate-400 text-sm mt-1">Garansi Resmi 100% realme Indonesia dengan layanan purna jual nasional.</p>
+                </div>
+
+                <!-- Category Filter Tabs -->
+                <div class="flex flex-wrap gap-2 p-1.5 bg-slate-900 rounded-2xl border border-slate-800">
+                    <button onclick="filterCategory('all')" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold bg-realme-yellow text-black transition">Semua Series</button>
+                    <button onclick="filterCategory('gt')" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition">GT Flagship</button>
+                    <button onclick="filterCategory('number')" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition">Number Series</button>
+                    <button onclick="filterCategory('c')" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition">C Series & Note</button>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="productGrid">
+                <!-- Products dynamically rendered by JS -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 4: AFTER-SALES SERVICE GUARANTEE -->
+    <section id="garansi" class="py-16 bg-slate-950 border-t border-slate-900 text-slate-400 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="flex items-center gap-4 p-4 glass-panel rounded-2xl border-slate-800">
+                <i data-lucide="shield-check" class="w-8 h-8 text-realme-yellow shrink-0"></i>
+                <div>
+                    <div class="font-bold text-white text-sm">Garansi Resmi 15 Bulan</div>
+                    <div>Jaminan perbaikan di Official Service Center resmi Indonesia.</div>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 p-4 glass-panel rounded-2xl border-slate-800">
+                <i data-lucide="truck" class="w-8 h-8 text-realme-yellow shrink-0"></i>
+                <div>
+                    <div class="font-bold text-white text-sm">Gratis Ongkir Seluruh Indo</div>
+                    <div>Pengiriman ekspres aman terasuransi ke seluruh kota.</div>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 p-4 glass-panel rounded-2xl border-slate-800">
+                <i data-lucide="credit-card" class="w-8 h-8 text-realme-yellow shrink-0"></i>
+                <div>
+                    <div class="font-bold text-white text-sm">Cicilan 0% & BRI Ceria</div>
+                    <div>Kemudahan pembayaran hingga 12 bulan tenor hemat.</div>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 p-4 glass-panel rounded-2xl border-slate-800">
+                <i data-lucide="headphones" class="w-8 h-8 text-realme-yellow shrink-0"></i>
+                <div>
+                    <div class="font-bold text-white text-sm">Layanan CS 24/7</div>
+                    <div>Bantuan cepat klaim & konsultasi via WhatsApp resmi.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-10 border-t border-slate-900 text-slate-500 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="bg-realme-yellow text-black font-black px-2 py-0.5 rounded">realme</span>
+                <span class="text-white font-bold">PT realme Mobile Indonesia</span>
+            </div>
+            <div>&copy; 2026 realme. All Rights Reserved. Make it Real.</div>
+        </div>
+    </footer>
+
+    <!-- SLIDE-OVER SHOPPING CART DRAWER -->
+    <div id="cartDrawer" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="toggleCartDrawer()"></div>
+        
+        <div class="fixed inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-slate-950 border-l border-slate-800 text-slate-100 flex flex-col justify-between p-6">
+                
+                <!-- Cart Header -->
+                <div>
+                    <div class="flex justify-between items-center pb-6 border-b border-slate-800">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="shopping-bag" class="w-5 h-5 text-realme-yellow"></i>
+                            <h3 class="text-lg font-black text-white">Keranjang Belanja</h3>
+                        </div>
+                        <button onclick="toggleCartDrawer()" class="text-slate-400 hover:text-white">
+                            <i data-lucide="x" class="w-6 h-6"></i>
+                        </button>
+                    </div>
+
+                    <!-- Cart Item List -->
+                    <div class="py-4 space-y-4 max-h-[50vh] overflow-y-auto" id="cartItemList">
+                        <!-- Items rendered dynamically -->
+                    </div>
+                </div>
+
+                <!-- Cart Summary & Checkout CTA -->
+                <div class="pt-6 border-t border-slate-800 space-y-4">
+                    <!-- Promo Code Input -->
+                    <div class="flex gap-2">
+                        <input type="text" id="couponCodeInput" placeholder="Kode Promo (cth: REALME2026)" class="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white uppercase focus:border-realme-yellow focus:outline-none">
+                        <button onclick="applyCoupon()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-realme-yellow font-bold text-xs rounded-xl shrink-0">Klaim</button>
+                    </div>
+
+                    <div class="space-y-2 text-xs">
+                        <div class="flex justify-between text-slate-400">
+                            <span>Subtotal Produk</span>
+                            <span id="cartSubtotal" class="text-white font-bold">Rp 0</span>
+                        </div>
+                        <div class="flex justify-between text-emerald-400" id="discountRow" style="display: none;">
+                            <span>Diskon Kupon Promo</span>
+                            <span id="cartDiscount">- Rp 500.000</span>
+                        </div>
+                        <div class="flex justify-between text-slate-400">
+                            <span>Ongkos Kirim Express</span>
+                            <span class="text-emerald-400 font-bold">GRATIS</span>
+                        </div>
+                        <div class="flex justify-between text-base font-black pt-2 border-t border-slate-800">
+                            <span class="text-white">Total Checkout</span>
+                            <span class="text-realme-yellow" id="cartTotal">Rp 0</span>
+                        </div>
+                    </div>
+
+                    <button onclick="openCheckoutModal()" class="w-full py-4 bg-realme-yellow hover:bg-realme-yellowDark text-black font-extrabold rounded-2xl transition text-sm shadow-xl shadow-realme-yellow/20 flex items-center justify-center gap-2">
+                        Lanjut ke Pembayaran <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MULTI-STEP CHECKOUT FORM MODAL -->
+    <div id="checkoutModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md hidden">
+        <div class="glass-panel p-6 sm:p-8 rounded-3xl max-w-xl w-full border border-slate-800 text-slate-100 max-h-[90vh] overflow-y-auto space-y-6">
+            
+            <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+                <div>
+                    <h3 class="text-xl font-black text-white">Form Pembayaran Official</h3>
+                    <p class="text-xs text-slate-400">Lengkapi data untuk pengiriman resmi realme Indonesia.</p>
+                </div>
+                <button onclick="closeCheckoutModal()" class="text-slate-400 hover:text-white">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <!-- Checkout Customer Details Form -->
+            <form id="checkoutForm" onsubmit="processOrder(event)" class="space-y-4 text-xs">
+                <div>
+                    <label class="block font-bold text-white mb-1">Nama Lengkap Pembeli</label>
+                    <input type="text" required placeholder="Contoh: Budi Santoso" class="w-full px-4 py-3 bg-slate-900 border border-slate-800 rounded-xl text-white focus:border-realme-yellow focus:outline-none">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block font-bold text-white mb-1">Nomor WhatsApp</label>
+                        <input type="tel" required placeholder="08123456789" class="w-full px-4 py-3 bg-slate-900 border border-slate-800 rounded-xl text-white focus:border-realme-yellow focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-white mb-1">Kota / Kabupaten</label>
+                        <input type="text" required placeholder="Jakarta Selatan" class="w-full px-4 py-3 bg-slate-900 border border-slate-800 rounded-xl text-white focus:border-realme-yellow focus:outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-white mb-1">Alamat Pengiriman Lengkap</label>
+                    <textarea required rows="2" placeholder="Jl. Sudirman No. 45, Kecamatan Kebayoran Baru..." class="w-full px-4 py-3 bg-slate-900 border border-slate-800 rounded-xl text-white focus:border-realme-yellow focus:outline-none"></textarea>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-white mb-2">Pilihan Metode Pembayaran</label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <label class="p-3 bg-slate-900 rounded-xl border border-slate-800 flex items-center gap-2 cursor-pointer hover:border-realme-yellow">
+                            <input type="radio" name="payment" value="qris" checked class="accent-realme-yellow">
+                            <span class="font-bold text-white">QRIS Instant</span>
+                        </label>
+                        <label class="p-3 bg-slate-900 rounded-xl border border-slate-800 flex items-center gap-2 cursor-pointer hover:border-realme-yellow">
+                            <input type="radio" name="payment" value="bank" class="accent-realme-yellow">
+                            <span class="font-bold text-white">Transfer Bank (BCA/Mandiri)</span>
+                        </label>
+                        <label class="p-3 bg-slate-900 rounded-xl border border-slate-800 flex items-center gap-2 cursor-pointer hover:border-realme-yellow">
+                            <input type="radio" name="payment" value="ewallet" class="accent-realme-yellow">
+                            <span class="font-bold text-white">GoPay / OVO / Dana</span>
+                        </label>
+                        <label class="p-3 bg-slate-900 rounded-xl border border-slate-800 flex items-center gap-2 cursor-pointer hover:border-realme-yellow">
+                            <input type="radio" name="payment" value="cicilan" class="accent-realme-yellow">
+                            <span class="font-bold text-white">BRI Ceria / Kredivo</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-slate-800">
+                    <button type="submit" class="w-full py-4 bg-realme-yellow hover:bg-realme-yellowDark text-black font-extrabold rounded-2xl text-sm transition shadow-xl shadow-realme-yellow/20">
+                        Bayar Sekarang & Buat Pesanan
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- INVOICE SUCCESS RECEIPT MODAL -->
+    <div id="invoiceModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/95 backdrop-blur-md hidden">
+        <div class="glass-panel p-8 rounded-3xl max-w-md w-full border border-realme-yellow text-center space-y-6">
+            <div class="w-16 h-16 bg-realme-yellow/20 rounded-full flex items-center justify-center mx-auto text-realme-yellow">
+                <i data-lucide="check-circle" class="w-10 h-10"></i>
+            </div>
+            
+            <div>
+                <h3 class="text-2xl font-black text-white">Pesanan Berhasil!</h3>
+                <p class="text-xs text-slate-400 mt-1">Nomor Resi Pesanan: <span class="font-mono text-realme-yellow font-bold" id="invResi">RLM-889402</span></p>
+            </div>
+
+            <div class="bg-slate-900 p-4 rounded-2xl text-left text-xs space-y-2 border border-slate-800">
+                <div class="flex justify-between"><span class="text-slate-400">Status Pembayaran</span><span class="text-emerald-400 font-bold">TERVERIFIKASI</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">Total Dibayar</span><span class="text-white font-bold" id="invTotal">Rp 0</span></div>
+                <div class="flex justify-between"><span class="text-slate-400">Estimasi Tiba</span><span class="text-white font-bold">1-2 Hari Kerja</span></div>
+            </div>
+
+            <button onclick="closeInvoiceModal()" class="w-full py-3 bg-realme-yellow hover:bg-realme-yellowDark text-black font-extrabold rounded-xl text-sm transition">
+                Kembali ke Beranda
+            </button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC & STATE MANAGEMENT -->
+    <script>
+        lucide.createIcons();
+
+        // REALME PRODUCT DATABASE
+        const products = [
+            {
+                id: 'gt7pro',
+                name: 'realme GT 7 Pro',
+                category: 'gt',
+                tag: 'Flagship Utama 2026',
+                price: 13999000,
+                chipset: 'Snapdragon® 8 Gen 3',
+                camera: '200MP Sony OIS Periscope',
+                battery: '120W SUPERVOOC | 6000mAh',
+                img: 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=600&q=80'
+            },
+            {
+                id: '16proplus',
+                name: 'realme 16 Pro+ 5G',
+                category: 'number',
+                tag: 'Upper Midrange Hero',
+                price: 8999000,
+                chipset: 'Dimensity 8300 Ultra',
+                camera: '200MP LumaColor OIS',
+                battery: '100W SUPERVOOC | 5200mAh',
+                img: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80'
+            },
+            {
+                id: '16pro',
+                name: 'realme 16 Pro 5G',
+                category: 'number',
+                tag: 'Curved Display Master',
+                price: 6999000,
+                chipset: 'Dimensity 7050 5G',
+                camera: '108MP OIS Camera',
+                battery: '67W SUPERVOOC | 5000mAh',
+                img: 'https://images.unsplash.com/photo-1565849904461-04a58ad377e0?auto=format&fit=crop&w=600&q=80'
+            },
+            {
+                id: '16_5g',
+                name: 'realme 16 5G',
+                category: 'number',
+                tag: 'Performance King',
+                price: 5499000,
+                chipset: 'Snapdragon 695 5G',
+                camera: '64MP Street Photography',
+                battery: '45W SUPERVOOC | 5000mAh',
+                img: 'https://images.unsplash.com/photo-1574944985070-8f30c4397e3c?auto=format&fit=crop&w=600&q=80'
+            },
+            {
+                id: 'c85pro',
+                name: 'realme C85 Pro',
+                category: 'c',
+                tag: 'Tahan Air & Benturan IP69',
+                price: 3999000,
+                chipset: 'Helio G99 Ultimate',
+                camera: '50MP AI Camera',
+                battery: '45W Fast Charge | 6000mAh',
+                img: 'https://images.unsplash.com/photo-1580910051074-3eb694886505?auto=format&fit=crop&w=600&q=80'
+            },
+            {
+                id: 'c100',
+                name: 'realme C100',
+                category: 'c',
+                tag: 'Juara Baterai Entry',
+                price: 2799000,
+                chipset: 'Unisoc T612 Turbo',
+                camera: '50MP Clear Camera',
+                battery: '33W Charge | 5000mAh',
+                img: 'https://images.unsplash.com/photo-1546054454-aa26e2b734c7?auto=format&fit=crop&w=600&q=80'
+            },
+            {
+                id: 'note80',
+                name: 'realme Note 80',
+                category: 'c',
+                tag: 'Kualitas Andal Hemat',
+                price: 1799000,
+                chipset: 'Octa-Core High Efficiency',
+                camera: '13MP Dual Camera',
+                battery: '10W Charge | 5000mAh',
+                img: 'https://images.unsplash.com/photo-1523206489230-c012c64b2b48?auto=format&fit=crop&w=600&q=80'
+            }
+        ];
+
+        let cart = [];
+        let discountApplied = false;
+
+        // RENDER PRODUCTS IN STORE GRID
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+
+            const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'glass-card p-6 rounded-3xl flex flex-col justify-between space-y-6';
+                card.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="relative aspect-[4/3] rounded-2xl overflow-hidden bg-slate-900 border border-slate-800">
+                            <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover">
+                            <span class="absolute top-3 left-3 bg-realme-yellow text-black font-black text-[10px] px-2 py-0.5 rounded uppercase">
+                                ${p.tag}
+                            </span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-black text-white">${p.name}</h3>
+                            <div class="text-realme-yellow font-black text-lg mt-1">Rp ${p.price.toLocaleString('id-ID')}</div>
+                        </div>
+                        <div class="space-y-1.5 text-xs text-slate-400 pt-2 border-t border-slate-800">
+                            <div class="flex items-center gap-2"><i data-lucide="cpu" class="w-3.5 h-3.5 text-realme-yellow"></i> ${p.chipset}</div>
+                            <div class="flex items-center gap-2"><i data-lucide="camera" class="w-3.5 h-3.5 text-purple-400"></i> ${p.camera}</div>
+                            <div class="flex items-center gap-2"><i data-lucide="zap" class="w-3.5 h-3.5 text-cyan-400"></i> ${p.battery}</div>
+                        </div>
+                    </div>
+                    <button onclick="addToCart('${p.id}')" class="w-full py-3 bg-slate-900 hover:bg-realme-yellow hover:text-black text-white font-extrabold text-xs rounded-xl border border-slate-700 transition flex items-center justify-center gap-2">
+                        <i data-lucide="shopping-cart" class="w-4 h-4"></i> Tambah ke Keranjang
+                    </button>
+                `;
+                grid.appendChild(card);
+            });
+            lucide.createIcons();
+        }
+
+        // CATEGORY FILTER TOGGLE
+        function filterCategory(cat) {
+            document.querySelectorAll('.cat-btn').forEach(b => {
+                b.className = 'cat-btn px-4 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition';
+            });
+            event.target.className = 'cat-btn px-4 py-2 rounded-xl text-xs font-bold bg-realme-yellow text-black transition';
+            renderProducts(cat);
+        }
+
+        // CART LOGIC
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existing = cart.find(item => item.id === productId);
+            
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+            updateCartUI();
+            toggleCartDrawer(true);
+        }
+
+        function quickBuy(productId) {
+            addToCart(productId);
+            openCheckoutModal();
+        }
+
+        function updateCartUI() {
+            const list = document.getElementById('cartItemList');
+            const badge = document.getElementById('cartBadge');
+            list.innerHTML = '';
+
+            let subtotal = 0;
+            let totalQty = 0;
+
+            if (cart.length === 0) {
+                list.innerHTML = '<div class="text-center py-8 text-slate-500 text-xs">Keranjang Anda masih kosong.</div>';
+            } else {
+                cart.forEach((item, index) => {
+                    subtotal += item.price * item.qty;
+                    totalQty += item.qty;
+
+                    const row = document.createElement('div');
+                    row.className = 'p-3 bg-slate-900 rounded-xl flex items-center justify-between gap-3 border border-slate-800 text-xs';
+                    row.innerHTML = `
+                        <div>
+                            <div class="font-bold text-white">${item.name}</div>
+                            <div class="text-realme-yellow font-semibold">Rp ${item.price.toLocaleString('id-ID')}</div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="changeQty(${index}, -1)" class="w-6 h-6 rounded bg-slate-800 text-white font-bold">-</button>
+                            <span class="font-bold text-white">${item.qty}</span>
+                            <button onclick="changeQty(${index}, 1)" class="w-6 h-6 rounded bg-slate-800 text-white font-bold">+</button>
+                        </div>
+                    `;
+                    list.appendChild(row);
+                });
+            }
+
+            badge.innerText = totalQty;
+            document.getElementById('cartSubtotal').innerText = 'Rp ' + subtotal.toLocaleString('id-ID');
+
+            let finalTotal = subtotal;
+            if (discountApplied && subtotal > 0) {
+                finalTotal = Math.max(0, subtotal - 500000);
+            }
+            document.getElementById('cartTotal').innerText = 'Rp ' + finalTotal.toLocaleString('id-ID');
+        }
+
+        function changeQty(index, delta) {
+            cart[index].qty += delta;
+            if (cart[index].qty <= 0) cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function applyCoupon() {
+            const input = document.getElementById('couponCodeInput').value.trim().toUpperCase();
+            if (input === 'REALME2026') {
+                discountApplied = true;
+                document.getElementById('discountRow').style.display = 'flex';
+                updateCartUI();
+            } else {
+                alert('Kode promo tidak valid.');
+            }
+        }
+
+        function toggleCartDrawer(openForce) {
+            const drawer = document.getElementById('cartDrawer');
+            if (openForce !== undefined) {
+                if (openForce) drawer.classList.remove('hidden');
+                else drawer.classList.add('hidden');
+            } else {
+                drawer.classList.toggle('hidden');
+            }
+        }
+
+        function openCheckoutModal() {
+            if (cart.length === 0) return alert('Keranjang belanja kosong!');
+            toggleCartDrawer(false);
+            document.getElementById('checkoutModal').classList.remove('hidden');
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkoutModal').classList.add('hidden');
+        }
+
+        function processOrder(e) {
+            e.preventDefault();
+            document.getElementById('checkoutModal').classList.add('hidden');
+            document.getElementById('invResi').innerText = 'RLM-' + Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('invTotal').innerText = document.getElementById('cartTotal').innerText;
+            document.getElementById('invoiceModal').classList.remove('hidden');
+            cart = [];
+            discountApplied = false;
+            document.getElementById('discountRow').style.display = 'none';
+            updateCartUI();
+        }
+
+        function closeInvoiceModal() {
+            document.getElementById('invoiceModal').classList.add('hidden');
+        }
+
+        // HERO COLOR SWITCHER
+        function changeHeroColor(color) {
+            const container = document.getElementById('heroPhoneContainer');
+            if (color === 'yellow') {
+                container.style.borderColor = '#ffcc00';
+            } else if (color === 'titanium') {
+                container.style.borderColor = '#cbd5e1';
+            } else if (color === 'obsidian') {
+                container.style.borderColor = '#334155';
+            }
+        }
+
+        // 120W SUPERVOOC SIMULATOR LOGIC
+        let voocInterval = null;
+        function startVoocSim() {
+            if (voocInterval) clearInterval(voocInterval);
+            let pct = 15;
+            const bar = document.getElementById('voocBar');
+            const pctText = document.getElementById('voocPercent');
+            const timerText = document.getElementById('voocTimer');
+            const statusText = document.getElementById('voocStatus');
+
+            statusText.innerText = 'Mengisi Daya 120W...';
+
+            voocInterval = setInterval(() => {
+                pct += 5;
+                if (pct > 100) pct = 100;
+                bar.style.width = pct + '%';
+                pctText.innerText = pct + '%';
+
+                let mins = Math.ceil((100 - pct) * 0.18);
+                timerText.innerText = pct === 100 ? 'Penuh!' : `~${mins} Menit`;
+
+                if (pct >= 100) {
+                    clearInterval(voocInterval);
+                    statusText.innerText = 'Baterai 100% Penuh';
+                }
+            }, 200);
+        }
+
+        // CAMERA LENS SWITCHER LOGIC
+        const lensData = {
+            main: {
+                img: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1200&q=80',
+                tag: 'MODE: 200MP MAIN OIS (f/1.69)'
+            },
+            periscope: {
+                img: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1200&q=80',
+                tag: 'MODE: 3.5x PERISCOPE TELEPHOTO (120x MAX)'
+            },
+            wide: {
+                img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80',
+                tag: 'MODE: 50MP ULTRA-WIDE 112°'
+            }
+        };
+
+        function switchLensMode(key) {
+            document.getElementById('lensSampleImg').src = lensData[key].img;
+            document.getElementById('lensTag').innerText = lensData[key].tag;
+        }
+
+        // FPS SMOOTHNESS TOGGLE
+        let spritePos = 16;
+        let spriteDir = 1;
+        let currentFps = 120;
+        let fpsInterval = setInterval(animateSprite, 1000 / 120);
+
+        function animateSprite() {
+            const sprite = document.getElementById('gameSprite');
+            if (!sprite) return;
+            spritePos += 3 * spriteDir;
+            if (spritePos > 240) spriteDir = -1;
+            if (spritePos < 16) spriteDir = 1;
+            sprite.style.left = spritePos + 'px';
+        }
+
+        function setFps(fps) {
+            clearInterval(fpsInterval);
+            fpsInterval = setInterval(animateSprite, 1000 / fps);
+            
+            const btn60 = document.getElementById('fps60Btn');
+            const btn120 = document.getElementById('fps120Btn');
+            const sprite = document.getElementById('gameSprite');
+
+            if (fps === 60) {
+                btn60.className = 'px-6 py-2.5 rounded-xl font-bold text-xs bg-realme-yellow text-black font-extrabold';
+                btn120.className = 'px-6 py-2.5 rounded-xl font-bold text-xs bg-slate-800 text-slate-400';
+                sprite.innerText = '60 FPS';
+                document.getElementById('cpuTemp').innerText = '41°C (Hangat)';
+            } else {
+                btn120.className = 'px-6 py-2.5 rounded-xl font-bold text-xs bg-realme-yellow text-black font-extrabold';
+                btn60.className = 'px-6 py-2.5 rounded-xl font-bold text-xs bg-slate-800 text-slate-400';
+                sprite.innerText = '120 FPS';
+                document.getElementById('cpuTemp').innerText = '36°C (Dingin)';
+            }
+        }
+
+        // MOBILE MENU TOGGLE
+        document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        });
+
+        // INITIAL RENDER
+        renderProducts('all');
+    </script>
+</body>
+</html>
+```
